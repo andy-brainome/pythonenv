@@ -1,7 +1,7 @@
 name: build and upload daimensions server to s3
 on:
   push:
-    branches: [master]
+    branches: [ master ]
 
 defaults:
   run:
