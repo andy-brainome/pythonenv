@@ -41,12 +41,10 @@ jobs:
         python -m nuitka --version | tee nuitka-report.out
         ./sys-path.bin | tee nuitka-report.out
 
-    - name: Archive output
+    - name: Archive report output
       uses: actions/upload-artifact@v1
       with:
-        name: native-report.out
-        name: nuitka-build.out
-        name: nuitka-report.out
+        path: ./*.out
 
     - name: Archive binary
       uses: actions/upload-artifact@v1
