@@ -34,6 +34,11 @@ jobs:
       env:
         PYTHONPATH: /usr/local/lib/python3.6/site-packages
 
+    - name: compile sys-path standalone
+      run: python3 -m nuitka --full-compat --stansalone sys-path.py -o sys-path-standalone
+      env:
+        PYTHONPATH: /usr/local/lib/python3.6/site-packages
+
     - name: report nuitka sys-path
       run: ./sys-path
 
@@ -50,3 +55,4 @@ jobs:
     - name: publish util to s3
       run: |
         aws s3 cp sys-path s3://download.brainome.net/andy/sys-path
+        aws s3 cp sys-path-standalone s3://download.brainome.net/andy/sys-path-standalone
