@@ -26,6 +26,9 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+    - name: report sys.path
+      run: python3 sys-path.py
+
     - name: compile sys-path
       run: python3 -m nuitka --full-compat  sys-path.py -o sys-path
       env:
