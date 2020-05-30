@@ -23,36 +23,33 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python3 -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
 
-    - name: report sys.path
-      run: python3 sys-path.py
+    - name: report native sys.path
+      run: |
+        python3 --version | tee native-report.out
+        python3 sys-path.py | tee --append native-report.out
 
     - name: compile sys-path
-      run: python3 -m nuitka --full-compat  sys-path.py -o sys-path
-      env:
-        PYTHONPATH: /usr/local/lib/python3.6/site-packages
-
-    - name: compile sys-path standalone
-      run: python3 -m nuitka --full-compat --standalone sys-path.py -o sys-path-standalone
+      run: python3 -m nuitka --full-compat  sys-path.py -o sys-path.bin  | tee nuitka-build.out
       env:
         PYTHONPATH: /usr/local/lib/python3.6/site-packages
 
     - name: report nuitka sys-path
-      run: ./sys-path
-
-      # https://github.com/aws-actions/configure-aws-credentials
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-
-    # copy file to s3 bucket download.braionme.net
-    # TODO create x-amz-website-redirect-location property redirect instead of bruteforce copy into /latest/
-    - name: publish util to s3
       run: |
-        aws s3 cp sys-path s3://download.brainome.net/andy/sys-path
-        aws s3 cp sys-path-standalone s3://download.brainome.net/andy/sys-path-standalone
+        python -m nuitka --version | tee nuitka-report.out
+        ./sys-path.bin | tee nuitka-report.out
+
+    - name: Archive output
+      uses: actions/upload-artifact@v1
+      with:
+        name: native-report.out
+        name: nuitka-build.out
+        name: nuitka-report.out
+
+    - name: Archive binary
+      uses: actions/upload-artifact@v1
+      with:
+        name: sys-path.bin
+

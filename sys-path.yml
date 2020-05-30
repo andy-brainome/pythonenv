@@ -1,0 +1,18 @@
+# sys-path.yml
+name: 'sys-path'
+description: 'print native and nuitka sys.path'
+#inputs:
+#  who-to-greet:  # id of input
+#    description: 'Who to greet'
+#    required: true
+#    default: 'World'
+outputs:
+  systempath: systempath
+    description: 'Python system path sys.path'
+  nuitkasyspath: nuitkasyspath
+    description: 'Nuitka Python system path sys.path'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+#  args:
+#    - ${{ inputs.who-to-greet }}
