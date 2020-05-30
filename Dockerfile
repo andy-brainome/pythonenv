@@ -4,9 +4,6 @@ MAINTAINER andy.stevko@brainome.ai
 
 COPY requirements.txt requirements.txt
 RUN echo "|--> Install Python3 * requirements" \
-    && apt-get --assume-yes update \
-    && apt-get --assume-yes install apt-utils python3-dev  python3-pip csh\
-    && python3 -m pip install --upgrade pip \
     && python3 -m pip install -r requirements.txt
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
