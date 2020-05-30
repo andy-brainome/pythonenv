@@ -28,6 +28,8 @@ jobs:
 
     - name: compile sys-path
       run: python3 -m nuitka --full-compat  sys-path.py -o sys-path
+      env:
+        PYTHONPATH: /usr/local/lib/python3.6/site-packages
 
       # https://github.com/aws-actions/configure-aws-credentials
     - name: Configure AWS credentials
