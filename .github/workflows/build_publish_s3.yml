@@ -1,0 +1,44 @@
+name: build and upload daimensions server to s3
+on:
+  push:
+    branches: [master]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  build-pub:
+
+    runs-on: ubuntu-16.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: compile sys-path
+      run: python3 -m nuitka --full-compat  sys-path.py -o sys-path
+
+      # https://github.com/aws-actions/configure-aws-credentials
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+    # copy file to s3 bucket download.braionme.net
+    # TODO create x-amz-website-redirect-location property redirect instead of bruteforce copy into /latest/
+    - name: publish util to s3
+      run: |
+        aws s3 cp sys-path s3://download.brainome.net/andy/sys-path
