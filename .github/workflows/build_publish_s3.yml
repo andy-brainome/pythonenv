@@ -44,7 +44,7 @@ jobs:
     - name: Run sys-path.bin on docker
       run: |
         docker build -t sys-path:latest .
-        docker run -it sys-path:latest | tee docker-report.out
+        docker run sys-path:latest | tee docker-report.out
 
     - name: Archive binary
       uses: actions/upload-artifact@v2
