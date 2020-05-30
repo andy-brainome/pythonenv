@@ -41,23 +41,18 @@ jobs:
         python -m nuitka --version | tee nuitka-report.out
         ./sys-path.bin | tee nuitka-report.out
 
-    - name: Archive report output
-      uses: actions/upload-artifact@v2
-      with:
-        path: ./*.out
+    - name: Run sys-path.bin on docker
+      run: |
+        docker build -t sys-path:latest .
+        docker run -it sys-path:latest | tee docker-report.out
 
     - name: Archive binary
       uses: actions/upload-artifact@v2
       with:
         path: ./sys-path.bin
 
-    - name: sys-path docker
-      description: 'print native and nuitka sys.path'
-      outputs:
-        systempath: systempath
-          description: 'Python system path sys.path'
-        nuitkasyspath: nuitkasyspath
-          description: 'Nuitka Python system path sys.path'
-      runs:
-        using: 'docker'
-        image: 'Dockerfile'
+    - name: Archive report output
+      uses: actions/upload-artifact@v2
+      with:
+        path: ./*.out
+
