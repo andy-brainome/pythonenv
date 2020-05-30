@@ -3,7 +3,7 @@ UNAME := $(shell uname)
 default: clean main
 
 main:
-	 python3 -m nuitka --full-compat  sys-path.py -o sys-path.bin  | tee nuitka-build.out
+	 python3 -m nuitka  sys-path.py -o sys-path.bin  | tee nuitka-build.out
 
 docker:
 	docker build -t sys-path:latest .

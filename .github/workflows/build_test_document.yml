@@ -33,7 +33,7 @@ jobs:
 
     - name: compile sys-path
       run: |
-        python3 -m nuitka --full-compat  sys-path.py -o sys-path.bin  | tee nuitka-build.out
+        python3 -m nuitka sys-path.py -o sys-path.bin  | tee nuitka-build.out
         python3 -m nuitka --standalone  sys-path.py  | tee -a nuitka-build.out
 
     - name: report nuitka sys-path
