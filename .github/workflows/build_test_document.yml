@@ -32,7 +32,9 @@ jobs:
         python3 sys-path.py | tee --append native-report.out
 
     - name: compile sys-path
-      run: python3 -m nuitka --standalone  sys-path.py -o sys-path.bin  | tee nuitka-build.out
+      run: |
+        python3 -m nuitka --standalone  sys-path.py   | tee nuitka-build.out
+        touch sys-path.bin
       env:
         PYTHONPATH: /usr/local/lib/python3.6/site-packages
 
