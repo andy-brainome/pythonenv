@@ -1,7 +1,6 @@
 *.o
 *.c
 *.html
-*.so
 *.pyc
 __pycache__
 temp/
