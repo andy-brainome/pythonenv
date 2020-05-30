@@ -42,12 +42,12 @@ jobs:
         ./sys-path.bin | tee nuitka-report.out
 
     - name: Archive report output
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         path: ./*.out
 
     - name: Archive binary
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: sys-path.bin
 
