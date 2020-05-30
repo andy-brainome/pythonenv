@@ -13,6 +13,8 @@ Below are the native and nuitka sys.path values running on a python:3.6.10-slim 
 
 ['/sys-path-docker', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload']
 
+look for "REPRODUCE ERROR HERE" within the github action
+
 #### Method
 1. using github actions
 2. build binary sys-path.bin 
