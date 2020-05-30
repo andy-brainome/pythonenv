@@ -35,7 +35,7 @@ jobs:
         PYTHONPATH: /usr/local/lib/python3.6/site-packages
 
     - name: compile sys-path standalone
-      run: python3 -m nuitka --full-compat --stansalone sys-path.py -o sys-path-standalone
+      run: python3 -m nuitka --full-compat --standalone sys-path.py -o sys-path-standalone
       env:
         PYTHONPATH: /usr/local/lib/python3.6/site-packages
 
