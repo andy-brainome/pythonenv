@@ -41,10 +41,11 @@ jobs:
         python -m nuitka --version | tee nuitka-report.out
         ./sys-path.bin | tee nuitka-report.out
 
+    - name: create docker image
+      run: docker build -t sys-path:latest .
+
     - name: Run sys-path.bin on docker
-      run: |
-        docker build -t sys-path:latest .
-        docker run sys-path:latest | tee docker-report.out
+      run: docker run sys-path:latest | tee docker-report.out
 
     - name: Archive binary
       uses: actions/upload-artifact@v2
