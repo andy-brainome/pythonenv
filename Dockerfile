@@ -12,6 +12,7 @@ RUN echo "|--> Install Python3 * requirements" \
 # Copies your code file from your action repository to the filesystem path `/` of the container
 WORKDIR /sys-path-docker
 COPY ./sys-path.* ./
+COPY ./sys-path.dist/* ./sys-path.dist/
 COPY ./Makefile ./
 
 RUN chmod +x sys-path.bin
