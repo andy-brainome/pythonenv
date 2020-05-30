@@ -51,3 +51,13 @@ jobs:
       with:
         path: ./sys-path.bin
 
+    - name: sys-path docker
+      description: 'print native and nuitka sys.path'
+      outputs:
+        systempath: systempath
+          description: 'Python system path sys.path'
+        nuitkasyspath: nuitkasyspath
+          description: 'Nuitka Python system path sys.path'
+      runs:
+        using: 'docker'
+        image: 'Dockerfile'
